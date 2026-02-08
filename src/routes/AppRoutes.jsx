@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectIsAuthenticated, selectIsAdmin } from '@store/slices/authSlice'
+import { selectIsAuthenticated } from '@store/slices/authSlice'
 
 // Layouts
 import MainLayout from '@components/layout/MainLayout'
@@ -14,6 +14,19 @@ import NotFoundPage from '@pages/NotFoundPage'
 import ClientsListPage from '@pages/clients/ClientsListPage'
 import ClientFormPage from '@pages/clients/ClientFormPage'
 import ClientProfilePage from '@pages/clients/ClientProfilePage'
+
+// Product Pages
+import ProductsListPage from '@pages/products/ProductsListPage'
+import ProductFormPage from '@pages/products/ProductFormPage'
+import ProductDetailPage from '@pages/products/ProductDetailPage'
+
+// Order Pages
+import OrdersListPage from '@pages/orders/OrdersListPage'
+import CreateOrderPage from '@pages/orders/CreateOrderPage'
+import OrderDetailPage from '@pages/orders/OrderDetailPage'
+
+// Payment Pages
+import PaymentsPage from '@pages/payments/PaymentsPage'
 
 // Route guards
 import PrivateRoute from './PrivateRoute'
@@ -44,13 +57,28 @@ function AppRoutes() {
             <Route path="/clients/new" element={<ClientFormPage />} />
             <Route path="/clients/:id" element={<ClientProfilePage />} />
             <Route path="/clients/:id/edit" element={<ClientFormPage />} />
+
+            {/* Product Management (Admin actions) */}
+            <Route path="/products/new" element={<ProductFormPage />} />
+            <Route path="/products/:id/edit" element={<ProductFormPage />} />
+
+            {/* Order Management (Admin actions) */}
+            <Route path="/orders/new" element={<CreateOrderPage />} />
           </Route>
+
+          {/* Product routes (accessible by all authenticated users) */}
+          <Route path="/products" element={<ProductsListPage />} />
+          <Route path="/products/:id" element={<ProductDetailPage />} />
+
+          {/* Order routes (accessible by all authenticated users) */}
+          <Route path="/orders" element={<OrdersListPage />} />
+          <Route path="/orders/:id" element={<OrderDetailPage />} />
+
+          {/* Payment routes (accessible by all authenticated users) */}
+          <Route path="/payments" element={<PaymentsPage />} />
 
           {/* Client routes */}
           <Route path="/profile" element={<div>Profile Page</div>} />
-          <Route path="/orders" element={<div>Orders Page</div>} />
-          <Route path="/products" element={<div>Products Page</div>} />
-          <Route path="/payments" element={<div>Payments Page</div>} />
         </Route>
       </Route>
 
